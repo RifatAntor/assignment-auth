@@ -10,7 +10,6 @@ const Modal = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("click");
 
     const enteredEmailIsValid = !isEmpty(email);
 
@@ -32,11 +31,21 @@ const Modal = (props) => {
           "content-type": "application/json",
         },
       }
-    ).then((res) => {
-      if (res.ok) {
-        setMessage(true);
-      }
-    });
+    )
+      .then((res) => {
+        if (res.ok) {
+          setMessage(true);
+        } else {
+          return res.json().then((data) => {
+            let errMessage = "Something went wrong";
+            if (data && data.error && data.error.message) {
+              errMessage = data.error.message;
+              throw new Error(errMessage);
+            }
+          });
+        }
+      })
+      .catch((err) => alert(err.message));
   };
 
   return (

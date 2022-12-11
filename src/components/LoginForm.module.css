@@ -55,6 +55,7 @@
 .invalid input {
   border-color: #aa0b20;
   background-color: #ffeff1;
+  color: #0f0c29;
 }
 
 .txt {

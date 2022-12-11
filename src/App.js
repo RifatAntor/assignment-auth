@@ -21,17 +21,23 @@ function App() {
           "content-type": "application/json",
         },
       }
-    ).then((res) => {
-      if (res.ok) {
-        console.log("success");
-        return res.json();
-      } else {
-        console.log("failed");
-      }
-    });
+    )
+      .then((res) => {
+        if (res.ok) {
+          alert("Login Successfull");
+        } else {
+          return res.json().then((data) => {
+            let errMessage = "Login Failed";
+            if (data && data.error && data.error.message) {
+              errMessage = data.error.message;
+              throw new Error(errMessage);
+            }
+          });
+        }
+      })
+      .catch((err) => alert(err.message));
   };
   const signup = ({ email, password }) => {
-    console.log(email);
     fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCl5iuFUssbM3CmcxkKGIN_q0Zy_jWd97I",
       {
@@ -45,14 +51,21 @@ function App() {
           "content-type": "application/json",
         },
       }
-    ).then((res) => {
-      if (res.ok) {
-        console.log("success");
-        return res.json();
-      } else {
-        console.log("failed");
-      }
-    });
+    )
+      .then((res) => {
+        if (res.ok) {
+          alert("Authentication Success");
+        } else {
+          return res.json().then((data) => {
+            let errMessage = "Authentication Failed";
+            if (data && data.error && data.error.message) {
+              errMessage = data.error.message;
+              throw new Error(errMessage);
+            }
+          });
+        }
+      })
+      .catch((err) => alert(err.message));
   };
 
   return (

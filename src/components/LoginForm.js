@@ -12,6 +12,8 @@ const LoginForm = (props) => {
   const [emailIsValid, setEmailIsValid] = useState(true);
   const [passIsValid, setPassIsValid] = useState(true);
 
+  
+
   const submitHandler = (event) => {
     event.preventDefault();
 
@@ -69,6 +71,7 @@ const LoginForm = (props) => {
         <div className={classes.actions}>
           <button type="submit">Login</button>
         </div>
+        {props.isLoading && <p>Loading...</p>}
         <div className={classes.txt}>
           <p onClick={() => setOpenModal(true)}>Forget your password</p>
         </div>
